@@ -1,0 +1,40 @@
+[
+    {
+        "course_id": "CSE101",
+        "title": "Introduction to Programming",
+        "description": "Learn variables, loops, functions, and basic Python programming.",
+        "prerequisites": []
+    },
+    {
+        "course_id": "CSE201",
+        "title": "Data Structures",
+        "description": "Covers arrays, linked lists, stacks, queues, trees, graphs, and hashing.",
+        "prerequisites": [
+            "CSE101"
+        ]
+    },
+    {
+        "course_id": "CSE320",
+        "title": "Algorithms",
+        "description": "Teaches dynamic programming, greedy algorithms, sorting, and graph algorithms.",
+        "prerequisites": [
+            "CSE201"
+        ]
+    },
+    {
+        "course_id": "CSE470",
+        "title": "Machine Learning",
+        "description": "Topics include supervised learning, regression, classification, and clustering.",
+        "prerequisites": [
+            "CSE320"
+        ]
+    },
+    {
+        "course_id": "CSE475",
+        "title": "Data Mining",
+        "description": "Learn clustering, association rules, pattern mining, and dimensionality reduction.",
+        "prerequisites": [
+            "CSE320"
+        ]
+    }
+]

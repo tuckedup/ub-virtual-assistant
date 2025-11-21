@@ -1,0 +1,170 @@
+[
+    {
+        "course_id": "CSE101",
+        "title": "Introduction to Programming",
+        "description": "Covers basic Python programming including variables, loops, conditionals, functions, and simple data structures.",
+        "prerequisites": [],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Fall",
+            "Spring"
+        ],
+        "instructor": "Dr. Alice Turner"
+    },
+    {
+        "course_id": "CSE201",
+        "title": "Data Structures",
+        "description": "Explores core data structures such as arrays, linked lists, stacks, queues, hash tables, trees, and graphs. Focuses on implementation and complexity analysis.",
+        "prerequisites": [
+            "CSE101"
+        ],
+        "credits": 4,
+        "department": "CSE",
+        "semester": [
+            "Fall"
+        ],
+        "instructor": "Prof. Mark Evans"
+    },
+    {
+        "course_id": "CSE220",
+        "title": "Discrete Mathematics",
+        "description": "Introduces logic, proofs, combinatorics, sets, relations, functions, induction, recurrence relations, and basic graph theory.",
+        "prerequisites": [],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Spring"
+        ],
+        "instructor": "Dr. Susan Lin"
+    },
+    {
+        "course_id": "CSE320",
+        "title": "Algorithms",
+        "description": "Covers algorithmic paradigms including divide and conquer, dynamic programming, greedy algorithms, and graph algorithms such as BFS, DFS, and shortest path.",
+        "prerequisites": [
+            "CSE201",
+            "CSE220"
+        ],
+        "credits": 4,
+        "department": "CSE",
+        "semester": [
+            "Fall",
+            "Spring"
+        ],
+        "instructor": "Dr. Kevin Patel"
+    },
+    {
+        "course_id": "CSE330",
+        "title": "Operating Systems",
+        "description": "Discusses threads, processes, CPU scheduling, memory management, I/O systems, synchronization, deadlocks, and file systems.",
+        "prerequisites": [
+            "CSE201"
+        ],
+        "credits": 4,
+        "department": "CSE",
+        "semester": [
+            "Spring"
+        ],
+        "instructor": "Dr. Maria Rodriguez"
+    },
+    {
+        "course_id": "CSE350",
+        "title": "Database Systems",
+        "description": "Introduces relational databases, SQL, indexing, query optimization, transactions, normalization, and NoSQL models.",
+        "prerequisites": [
+            "CSE201"
+        ],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Fall"
+        ],
+        "instructor": "Prof. Daniel Hughes"
+    },
+    {
+        "course_id": "CSE360",
+        "title": "Computer Networks",
+        "description": "Covers networking basics: TCP/IP, routing, congestion control, DNS, HTTP, sockets, and network security fundamentals.",
+        "prerequisites": [
+            "CSE330"
+        ],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Fall",
+            "Spring"
+        ],
+        "instructor": "Prof. Rachel Kim"
+    },
+    {
+        "course_id": "CSE410",
+        "title": "Machine Learning",
+        "description": "Covers supervised and unsupervised learning, including regression, classification, decision trees, SVMs, clustering, and feature engineering.",
+        "prerequisites": [
+            "CSE320"
+        ],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Fall"
+        ],
+        "instructor": "Dr. Henry Li"
+    },
+    {
+        "course_id": "CSE420",
+        "title": "Artificial Intelligence",
+        "description": "Introduces search algorithms, knowledge representation, probabilistic reasoning, reinforcement learning fundamentals, and planning.",
+        "prerequisites": [
+            "CSE320"
+        ],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Spring"
+        ],
+        "instructor": "Dr. Emily Zhao"
+    },
+    {
+        "course_id": "CSE430",
+        "title": "Deep Learning",
+        "description": "Explores neural networks, backpropagation, convolutional networks, recurrent networks, transformers, and training optimizations.",
+        "prerequisites": [
+            "CSE410"
+        ],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Fall",
+            "Spring"
+        ],
+        "instructor": "Prof. Benjamin Scott"
+    },
+    {
+        "course_id": "CSE440",
+        "title": "Data Mining",
+        "description": "Focuses on clustering, association rule mining, dimensionality reduction, anomaly detection, and large-scale pattern discovery.",
+        "prerequisites": [
+            "CSE320"
+        ],
+        "credits": 3,
+        "department": "CSE",
+        "semester": [
+            "Spring"
+        ],
+        "instructor": "Dr. Olivia Park"
+    },
+    {
+        "course_id": "MTH301",
+        "title": "Linear Algebra",
+        "description": "Covers vector spaces, matrices, eigenvalues, eigenvectors, orthogonality, projections, and applications in machine learning.",
+        "prerequisites": [],
+        "credits": 3,
+        "department": "MTH",
+        "semester": [
+            "Fall",
+            "Spring"
+        ],
+        "instructor": "Dr. Nathan Carter"
+    }
+]
