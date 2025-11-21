@@ -1,0 +1,12 @@
+﻿{
+  "questions": [
+    {
+      "question": "How do I register for classes?",
+      "answer": "Log into HUB Student Center, click Enroll under Academics, select term, and add classes."
+    },
+    {
+      "question": "Where can I get my transcript?",
+      "answer": "Official transcripts can be ordered through HUB for $10. Unofficial transcripts are free in HUB."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+﻿{
+  "CSE": {
+    "name": "Computer Science and Engineering",
+    "location": "Davis Hall",
+    "phone": "(716) 645-3180"
+  },
+  "MTH": {
+    "name": "Mathematics",
+    "location": "Mathematics Building",
+    "phone": "(716) 645-6284"
+  }
+}

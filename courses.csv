@@ -1,0 +1,4 @@
+course_id,title,description,credits,department,level
+CSE 574,Machine Learning,Introduction to statistical and machine learning methods.,3,CSE,GR
+CSE 571,Algorithms,Design and analysis of algorithms.,3,CSE,GR
+CSE 115,Introduction to Computer Science I,Intro to programming and problem solving.,4,CSE,UG

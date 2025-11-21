@@ -1,0 +1,4 @@
+term,course_id,section,instructor,days,start_time,end_time,room,campus,modality
+2025-09,CSE 574,LEC A,"Prof. Smith","TR","11:00","12:20","Knox 109","North Campus","In Person"
+2025-09,CSE 574,LEC B,"Prof. Lee","MW","14:00","15:20","Capen 260","North Campus","In Person"
+2025-09,CSE 571,LEC A,"Prof. Doe","TR","13:00","14:20","NSC 210","North Campus","In Person"

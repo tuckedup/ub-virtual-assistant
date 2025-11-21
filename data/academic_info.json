@@ -1,0 +1,13 @@
+﻿{
+  "registration": {
+    "add_drop_deadline": "First week of classes",
+    "withdrawal_deadline": "11th week of semester"
+  },
+  "grading": {
+    "scale": {
+      "A": "93-100",
+      "A-": "90-92",
+      "B+": "87-89"
+    }
+  }
+}

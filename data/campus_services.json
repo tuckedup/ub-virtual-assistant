@@ -1,0 +1,10 @@
+﻿{
+  "libraries": {
+    "lockwood": "North Campus - Main library",
+    "health_sciences": "South Campus"
+  },
+  "dining": {
+    "student_union": "North Campus - Multiple options",
+    "ellicott": "C3, Hubies"
+  }
+}

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UB Virtual Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #005BBB 0%, #0077BE 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar h3 {
+            color: #005BBB;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .quick-links {
+            list-style: none;
+        }
+        
+        .quick-links li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .quick-links li:hover {
+            background: #005BBB;
+            color: white;
+        }
+        
+        .chat-container {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: linear-gradient(90deg, #005BBB 0%, #0077BE 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .ub-logo {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #005BBB;
+        }
+        
+        .chat-title {
+            flex: 1;
+        }
+        
+        .chat-title h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .chat-title p {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .message-wrapper {
+            max-width: 70%;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        
+        .bot-message .avatar {
+            width: 32px;
+            height: 32px;
+            background: #005BBB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .message-content {
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        
+        .user-message .message-content {
+            background: #005BBB;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .bot-message .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .bot-message .message-content strong {
+            color: #005BBB;
+        }
+        
+        .typing-indicator {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 18px;
+            margin: 0 20px 20px 52px;
+            width: fit-content;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #999;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        .chat-input:focus {
+            border-color: #005BBB;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: #005BBB;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .send-button:hover {
+            background: #0077BE;
+            transform: scale(1.05);
+        }
+        
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        
+        .suggested-topics {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .suggestion-chip {
+            padding: 6px 12px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .suggestion-chip:hover {
+            background: #005BBB;
+            color: white;
+            border-color: #005BBB;
+        }
+        
+        .stats {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: 100vh;
+                padding: 0;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .chat-container {
+                border-radius: 0;
+                height: 100%;
+            }
+            
+            .message-wrapper {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h3>Quick Actions</h3>
+            <ul class="quick-links">
+                <li onclick="sendQuickMessage('What are the CSE courses for Spring 2025?')">
+                    📚 Browse Courses
+                </li>
+                <li onclick="sendQuickMessage('How do I register for classes?')">
+                    📝 Registration Help
+                </li>
+                <li onclick="sendQuickMessage('When are the important dates for Spring 2025?')">
+                    📅 Academic Calendar
+                </li>
+                <li onclick="sendQuickMessage('Where is the library?')">
+                    🏛️ Campus Services
+                </li>
+                <li onclick="sendQuickMessage('What are the tuition rates?')">
+                    💰 Financial Info
+                </li>
+                <li onclick="sendQuickMessage('How is GPA calculated?')">
+                    📊 Grades & GPA
+                </li>
+            </ul>
+            
+            <div class="stats" id="stats">
+                <h3>System Info</h3>
+                <div class="stat-item">
+                    <span>Courses:</span>
+                    <span id="totalCourses">-</span>
+                </div>
+                <div class="stat-item">
+                    <span>Departments:</span>
+                    <span id="totalDepts">-</span>
+                </div>
+                <div class="stat-item">
+                    <span>Status:</span>
+                    <span style="color: green;">● Online</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="ub-logo">UB</div>
+                <div class="chat-title">
+                    <h1>Virtual Assistant</h1>
+                    <p>University at Buffalo • Here to help 24/7</p>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-wrapper">
+                        <div class="avatar">UB</div>
+                        <div class="message-content">
+                            <strong>Welcome to UB Virtual Assistant!</strong><br><br>
+                            I can help you with:<br>
+                            • Course information and schedules<br>
+                            • Registration and enrollment<br>
+                            • Academic calendar and deadlines<br>
+                            • Campus services and locations<br>
+                            • Financial aid and tuition<br>
+                            • Grades and transcripts<br><br>
+                            How can I assist you today?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        class="chat-input" 
+                        id="chatInput" 
+                        placeholder="Ask me anything about UB..."
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">
+                        Send ➤
+                    </button>
+                </div>
+                <div class="suggested-topics">
+                    <div class="suggestion-chip" onclick="sendQuickMessage('CSE 115 course info')">
+                        CSE 115 info
+                    </div>
+                    <div class="suggestion-chip" onclick="sendQuickMessage('Spring 2025 deadlines')">
+                        Spring deadlines
+                    </div>
+                    <div class="suggestion-chip" onclick="sendQuickMessage('How to calculate GPA?')">
+                        GPA calculation
+                    </div>
+                    <div class="suggestion-chip" onclick="sendQuickMessage('Dining options on campus')">
+                        Dining locations
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let sessionId = localStorage.getItem('ub_chat_session') || Date.now().toString();
+        localStorage.setItem('ub_chat_session', sessionId);
+        
+        // Load stats on page load
+        window.onload = function() {
+            loadStats();
+        };
+        
+        async function loadStats() {
+            try {
+                const response = await fetch('http://localhost:8000/api/stats');
+                const data = await response.json();
+                
+                document.getElementById('totalCourses').textContent = data.total_courses || '0';
+                document.getElementById('totalDepts').textContent = data.departments || '0';
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+        
+        function handleKeyPress(event) {
+            if (event.keyCode === 13 && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+        
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const sendButton = document.getElementById('sendButton');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Disable input while sending
+            input.disabled = true;
+            sendButton.disabled = true;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            
+            // Clear input
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: sessionId
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                
+                const data = await response.json();
+                
+                // Hide typing indicator
+                hideTypingIndicator();
+                
+                // Add bot response
+                addMessage(data.response, 'bot');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                hideTypingIndicator();
+                addMessage('Sorry, I encountered an error. Please make sure the API server is running on port 8000.', 'bot');
+            } finally {
+                // Re-enable input
+                input.disabled = false;
+                sendButton.disabled = false;
+                input.focus();
+            }
+        }
+        
+        function addMessage(message, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'bot') {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'message-wrapper';
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'avatar';
+                avatar.textContent = 'UB';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                
+                // Convert markdown-style formatting to HTML
+                message = message
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/• /g, '• ');
+                
+                contentDiv.innerHTML = message;
+                
+                wrapper.appendChild(avatar);
+                wrapper.appendChild(contentDiv);
+                messageDiv.appendChild(wrapper);
+            } else {
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = message;
+                messageDiv.appendChild(contentDiv);
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            indicator.style.display = 'block';
+            
+            // Scroll to show indicator
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
